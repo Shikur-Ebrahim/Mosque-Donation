@@ -3,7 +3,7 @@
 import { useRef, useCallback } from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "whatsapp" | "telegram" | "imo";
+  variant?: "primary" | "whatsapp" | "telegram" | "imo" | "call";
   children: React.ReactNode;
   href?: string;
 }
@@ -28,6 +28,11 @@ const variantStyles: Record<string, React.CSSProperties> = {
     background: "linear-gradient(135deg, #0068FF 0%, #0050CC 100%)",
     color: "#fff",
     boxShadow: "0 6px 20px rgba(0,104,255,0.28)",
+  },
+  call: {
+    background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
+    color: "#fff",
+    boxShadow: "0 6px 20px rgba(16,185,129,0.30)",
   },
 };
 
