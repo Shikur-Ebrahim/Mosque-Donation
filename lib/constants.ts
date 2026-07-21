@@ -3,9 +3,9 @@
 // Change these values to update all links across the site.
 // ============================================================
 
-export const WHATSAPP_NUMBER = "251722160205"; // no + prefix
+export const WHATSAPP_NUMBER = "251932912020"; // no + prefix
 export const TELEGRAM_USERNAME = "Mosque_Donation"; // without @
-export const IMO_NUMBER = "251722160205"; // no + prefix
+export const IMO_NUMBER = "251932912020"; // no + prefix
 
 export const PHONE_NUMBER = "+251932912020"; // with + prefix for direct calls
 
