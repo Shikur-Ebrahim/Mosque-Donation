@@ -4,7 +4,7 @@
 // ============================================================
 
 export const WHATSAPP_NUMBER = "251932912020"; // no + prefix
-export const TELEGRAM_USERNAME = "Mosque_Donation"; // without @
+export const TELEGRAM_USERNAME = "Mosque_Dona"; // without @
 export const IMO_NUMBER = "251932912020"; // no + prefix
 
 export const PHONE_NUMBER = "+251932912020"; // with + prefix for direct calls
