@@ -7,7 +7,7 @@ export const WHATSAPP_NUMBER = "251722160205"; // no + prefix
 export const TELEGRAM_USERNAME = "Mosque_Donation"; // without @
 export const IMO_NUMBER = "251722160205"; // no + prefix
 
-export const PHONE_NUMBER = "+251722160205"; // with + prefix for direct calls
+export const PHONE_NUMBER = "+251932912020"; // with + prefix for direct calls
 
 export const CBE_ACCOUNT = "1000754882291";
 export const ACCOUNT_HOLDER = "Abdela Adem";
