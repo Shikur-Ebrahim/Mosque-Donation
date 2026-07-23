@@ -1,23 +1,28 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { CBE_ACCOUNT, ACCOUNT_HOLDER } from "@/lib/constants";
-import Button from "./Button";
+import { CBE_ACCOUNT, TELEBIRR_ACCOUNT, ABYSSINIA_ACCOUNT } from "@/lib/constants";
+
+const accounts = [
+  { name: "CBE Account", number: CBE_ACCOUNT, icon: "🏦" },
+  { name: "Telebirr", number: TELEBIRR_ACCOUNT, icon: "📱" },
+  { name: "Abissinya", number: ABYSSINIA_ACCOUNT, icon: "🏦" },
+];
 
 export default function DonationCard() {
-  const [copied, setCopied] = useState(false);
+  const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleCopy = useCallback(async () => {
+  const handleCopy = useCallback(async (accountNum: string) => {
     try {
-      await navigator.clipboard.writeText(CBE_ACCOUNT);
-      setCopied(true);
+      await navigator.clipboard.writeText(accountNum);
+      setCopiedAccount(accountNum);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setCopied(false), 2000);
+      timeoutRef.current = setTimeout(() => setCopiedAccount(null), 2000);
     } catch {
       // Fallback for older browsers / non-secure contexts
       const el = document.createElement("textarea");
-      el.value = CBE_ACCOUNT;
+      el.value = accountNum;
       el.style.position = "fixed";
       el.style.opacity = "0";
       document.body.appendChild(el);
@@ -25,9 +30,9 @@ export default function DonationCard() {
       el.select();
       document.execCommand("copy");
       document.body.removeChild(el);
-      setCopied(true);
+      setCopiedAccount(accountNum);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setCopied(false), 2000);
+      timeoutRef.current = setTimeout(() => setCopiedAccount(null), 2000);
     }
   }, []);
 
@@ -43,68 +48,61 @@ export default function DonationCard() {
           style={{ background: "var(--green-light)" }}
           aria-hidden="true"
         >
-          🏦
+          💳
         </span>
         <h2
           id="donation-title"
           className="text-lg font-bold"
           style={{ color: "var(--green-dark)" }}
         >
-          CBE Account
+          Donation Accounts
         </h2>
       </div>
 
       <hr className="gold-divider mb-5" />
 
-      {/* Account number display */}
-      <p
-        className="account-number mb-1 select-all"
-        aria-label={`CBE account number: ${CBE_ACCOUNT}`}
-        title="Tap to select"
-      >
-        {CBE_ACCOUNT}
-      </p>
-
-      {/* Account holder */}
-      <p
-        className="text-center text-sm font-medium mb-5"
-        style={{ color: "var(--text-muted)" }}
-      >
-        <span className="font-semibold" style={{ color: "var(--green)" }}>
-          Account Holder:
-        </span>{" "}
-        {ACCOUNT_HOLDER}
-      </p>
-
-      {/* Copy button */}
-      <Button
-        onClick={handleCopy}
-        variant="primary"
-        aria-label={
-          copied
-            ? "Account number copied to clipboard"
-            : "Copy CBE account number to clipboard"
-        }
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        {copied ? (
-          <>
-            <span aria-hidden="true">✅</span> Copied Successfully!
-          </>
-        ) : (
-          <>
-            <span aria-hidden="true">📋</span> Copy Account Number
-          </>
-        )}
-      </Button>
+      {/* Account List */}
+      <div className="flex flex-col gap-4">
+        {accounts.map((acc) => (
+          <div key={acc.name} className="flex flex-col gap-1.5">
+            <span className="text-sm font-bold ml-1" style={{ color: "var(--green-dark)" }}>
+              <span aria-hidden="true">{acc.icon}</span> {acc.name}
+            </span>
+            <div className="flex items-stretch gap-2">
+              <p
+                className="account-number flex-1 m-0 text-left select-all"
+                style={{ fontSize: "1.15rem", padding: "0.6rem 0.75rem", letterSpacing: "0.05em", textAlign: "left" }}
+                aria-label={`${acc.name} number: ${acc.number}`}
+                title="Tap to select"
+              >
+                {acc.number}
+              </p>
+              <button
+                onClick={() => handleCopy(acc.number)}
+                className="btn-ripple shrink-0 flex items-center justify-center rounded-xl font-bold transition-all"
+                style={{
+                  width: "55px",
+                  background: copiedAccount === acc.number ? "var(--green-light)" : "linear-gradient(135deg, #0F8A5F 0%, #0a6645 100%)",
+                  color: copiedAccount === acc.number ? "var(--green-dark)" : "#fff",
+                  boxShadow: copiedAccount === acc.number ? "none" : "0 4px 12px rgba(15,138,95,0.25)",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+                aria-label={copiedAccount === acc.number ? "Copied!" : `Copy ${acc.name} number`}
+              >
+                {copiedAccount === acc.number ? "✅" : "📋"}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Helper hint */}
       <p
-        className="text-center text-xs mt-3"
+        className="text-center text-xs mt-5"
         style={{ color: "var(--text-muted)" }}
       >
-        One tap copies the account number
+        Tap the 📋 button to copy the number
       </p>
     </section>
   );

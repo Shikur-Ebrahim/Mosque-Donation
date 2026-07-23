@@ -10,7 +10,8 @@ export const IMO_NUMBER = "251932912020"; // no + prefix
 export const PHONE_NUMBER = "+251932912020"; // with + prefix for direct calls
 
 export const CBE_ACCOUNT = "1000754882291";
-export const ACCOUNT_HOLDER = "Abdela Adem";
+export const TELEBIRR_ACCOUNT = "0995911053";
+export const ABYSSINIA_ACCOUNT = "206016876";
 
 // Derived URLs — DO NOT hardcode these anywhere else
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
